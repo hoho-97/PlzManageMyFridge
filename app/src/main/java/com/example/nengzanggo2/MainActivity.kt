@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var img3 : ImageButton
-        img3 = findViewById(R.id.imageButton3)
+        img3 = findViewById(R.id.btnToShoppingActivity)
 
         img3.setOnClickListener{
             var intent = Intent(applicationContext,OrderActivity::class.java)
