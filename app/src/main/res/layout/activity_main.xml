@@ -47,13 +47,11 @@
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/remove" />
 
-            <ImageButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_add"
-                android:layout_width="104dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
                 app:srcCompat="@drawable/plus" />
 
         </LinearLayout>
