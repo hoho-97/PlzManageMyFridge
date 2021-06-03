@@ -10,39 +10,40 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="66dp"
+        android:layout_height="65dp"
+        android:background="#2196F3"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btnToRefrigeratorActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@android:color/holo_green_light"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/rfg_icon" />
+            app:srcCompat="@drawable/rfg_icon3" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/btnToRecipeActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@android:color/holo_green_light"
+            android:padding="3dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/rfg_icon2" />
+            app:srcCompat="@drawable/pot_icon" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/btnToShoppingActivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@android:color/holo_green_light"
-            app:srcCompat="@drawable/rfg_icon" />
+            android:padding="7dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/shopping_icon" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 </LinearLayout>
