@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
             var intent = getIntent();
             finish();
             startActivity(intent);
+            //
         }
 
         btn_add.setOnClickListener {
