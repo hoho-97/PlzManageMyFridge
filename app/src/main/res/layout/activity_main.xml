@@ -27,7 +27,7 @@
                 <ListView
                     android:id="@+id/mainListView"
                     android:layout_width="match_parent"
-                    android:layout_height="343dp">
+                    android:layout_height="536dp">
 
                 </ListView>
 
@@ -52,6 +52,7 @@
                 android:id="@+id/btn_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
                 android:clickable="true"
                 app:srcCompat="@drawable/plus" />
 
