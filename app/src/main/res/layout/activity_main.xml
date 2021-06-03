@@ -46,5 +46,4 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/shopping_icon" />
     </LinearLayout>
-
 </LinearLayout>
