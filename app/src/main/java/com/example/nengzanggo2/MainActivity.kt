@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        btn_add = findViewById<Button>(R.id.btn_add)
+        btn_reset = findViewById<Button>(R.id.btn_reset)
         mainListView = findViewById<ListView>(R.id.mainListView)
 
         var img3 : ImageButton
