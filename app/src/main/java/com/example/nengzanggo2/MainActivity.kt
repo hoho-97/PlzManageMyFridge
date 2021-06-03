@@ -35,14 +35,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var EditText_quantity : EditText
     lateinit var EditText_time : EditText
     lateinit var mainListView : ListView
-    lateinit var btn_add : Button
-    lateinit var btn_reset : Button
+    lateinit var btn_add : ImageButton
+    lateinit var btn_reset : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        btn_add = findViewById<Button>(R.id.btn_add)
-        btn_reset = findViewById<Button>(R.id.btn_reset)
+        btn_add = findViewById<ImageButton>(R.id.btn_add)
+        btn_reset = findViewById<ImageButton>(R.id.btn_reset)
         mainListView = findViewById<ListView>(R.id.mainListView)
 
         var img3 : ImageButton
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
             dlg.setView(dialogView)
 
-            dlg.setPositiveButton("확인"){dialog , which ->
+            dlg.setPositiveButton("추가할래"){dialog , which ->
 
                 val stockDB = stockHelper.writableDatabase
                 stockDB.execSQL("INSERT INTO stockTBL VALUES ( '${EditText_name.text.toString()}' , '${EditText_quantity.text.toString()}' , '${EditText_time.text.toString()}' );")
@@ -99,19 +99,10 @@ class MainActivity : AppCompatActivity() {
 
                 Toast.makeText(applicationContext, "입력됨", Toast.LENGTH_SHORT).show()
             }
+            dlg.setNegativeButton("취소",null)
             dlg.show()
 
         }
-
-
-
-
-
-
-
-
-
-
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
