@@ -39,10 +39,4 @@
             android:background="@android:color/holo_green_light"
             app:srcCompat="@drawable/rfg_icon" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 </LinearLayout>
