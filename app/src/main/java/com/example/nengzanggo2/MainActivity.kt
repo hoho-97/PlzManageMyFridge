@@ -10,7 +10,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.animation.ObjectAnimator
-
+//ddd
 class stockDBHelper(context: Context) : SQLiteOpenHelper(context,"stock",null,1) {
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL("CREATE TABLE stockTBL(sname CHAR(40),squantity CHAR(20),stime CHAR(20));")
