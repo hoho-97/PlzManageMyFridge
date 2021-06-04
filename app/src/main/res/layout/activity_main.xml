@@ -17,7 +17,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="290dp"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,75 +28,90 @@
                 <ListView
                     android:id="@+id/mainListView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="339dp">
 
                 </ListView>
 
             </LinearLayout>
         </ScrollView>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_weight="1">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/plus"
+                app:fabSize="auto"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/pencil_icon"
+                app:fabSize="auto"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:foregroundGravity="right"
+                android:src="@drawable/plus_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="#B4B5B3"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btn_reset"
-                android:layout_width="53dp"
-                android:layout_height="65dp"
-                android:background="@color/white"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/remove" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_add"
-                android:layout_width="match_parent"
+                android:id="@+id/btnToRefrigeratorActivity"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                app:srcCompat="@drawable/plus" />
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#B4B5B3"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/refrigerator_icon" />
 
+            <ImageButton
+                android:id="@+id/btnToRecipeActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#B4B5B3"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/pot_icon" />
+
+            <ImageButton
+                android:id="@+id/btnToShoppingActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#B4B5B3"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/shopping_icon" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#B4B5B3"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/btnToRefrigeratorActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="#B4B5B3"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/refrigerator_icon" />
-
-        <ImageButton
-            android:id="@+id/btnToRecipeActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="#B4B5B3"
-            android:padding="3dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/pot_icon" />
-
-        <ImageButton
-            android:id="@+id/btnToShoppingActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="#B4B5B3"
-            android:padding="7dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/shopping_icon" />
-    </LinearLayout>
 </LinearLayout>
