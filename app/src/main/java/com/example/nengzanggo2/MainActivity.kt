@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.animation.ObjectAnimator
 import android.content.Intent
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 //ddd
 class stockDBHelper(context: Context) : SQLiteOpenHelper(context,"stock",null,1) {
@@ -57,8 +58,6 @@ class MainActivity : AppCompatActivity() {
         mainListView.adapter = ingredientAdapter
 
         btn_add = findViewById<FloatingActionButton>(R.id.btn_add)
-        btn_recipe=findViewById(R.id.btn_recipe)
-
 
         fabMain=findViewById<FloatingActionButton>(R.id.fabMain)
         fabCamera=findViewById<FloatingActionButton>(R.id.btn_add)
@@ -111,9 +110,28 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        btn_recipe.setOnClickListener {
-            var intent = Intent(applicationContext, RecipeActivity::class.java)
-            startActivity(intent)
+        val bottomNavigation : BottomNavigationView = findViewById(R.id.btm_nav)
+        bottomNavigation.selectedItemId =R.id.home
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                R.id.order -> {
+                    startActivity(Intent(this, OrderActivity::class.java))
+                    finish()
+                }
+                R.id.recipe -> {
+                    startActivity(Intent(this,RecipeActivity::class.java))
+                    finish()
+                }
+                R.id.calendar -> {
+                    startActivity(Intent(this,CalendarActivity::class.java))
+                    finish()
+                }
+            }
+            true
         }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

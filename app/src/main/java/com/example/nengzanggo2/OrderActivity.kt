@@ -8,6 +8,8 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.order.*
 
 class OrderActivity : Activity() {
 
@@ -17,12 +19,12 @@ class OrderActivity : Activity() {
 
         title="주문!!"
         var Edit1 : EditText
-        var image1 : ImageButton
+        var btnSearch : Button
 
         Edit1 = findViewById(R.id.Edit1)
-        image1 = findViewById(R.id.imageButton)
+        btnSearch = findViewById(R.id.btnSearch)
 
-        image1.setOnClickListener {
+        btnSearch.setOnClickListener {
             var text = Edit1.text.toString()
             var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coupang.com/np/search?component=&q=${text}&channel=user/"))
             startActivity(intent)
@@ -62,5 +64,29 @@ class OrderActivity : Activity() {
 
         viewFlipper1.flipInterval = 2000
         viewFlipper1.startFlipping()
+
+        val bottomNavigation : BottomNavigationView = findViewById(R.id.btm_nav)
+        bottomNavigation.selectedItemId =R.id.order
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                R.id.order -> {
+                    startActivity(Intent(this, OrderActivity::class.java))
+                    finish()
+                }
+                R.id.recipe -> {
+                    startActivity(Intent(this,RecipeActivity::class.java))
+                    finish()
+                }
+                R.id.calendar -> {
+                    startActivity(Intent(this,CalendarActivity::class.java))
+                    finish()
+                }
+            }
+            true
+        }
     }
 }

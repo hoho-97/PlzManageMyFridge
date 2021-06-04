@@ -17,10 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".RecipeActivity" android:label="recipe 액티비티"/>
-        <activity
-            android:name=".OrderActivity"
-            android:label="order 액티비티" />
+        <activity android:name=".RecipeActivity"/>
+        <activity android:name=".OrderActivity"/>
         <activity android:name=".CalendarActivity"/>
     </application>
 </manifest>

@@ -22,13 +22,12 @@
             android:padding="5dp"
             android:textSize="20dp" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
+        <Button
+            android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            android:text="검색" />
 
     </LinearLayout>
 
@@ -75,43 +74,12 @@
             android:outAnimation="@android:anim/slide_out_right"></ViewFlipper>
     </LinearLayout>
 
-    <LinearLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="#FFFFFF"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/btnToRefrigeratorActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="#B4B5B3"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/refrigerator_icon" />
-
-        <ImageButton
-            android:id="@+id/btnToRecipeActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="#B4B5B3"
-            android:padding="3dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/pot_icon" />
-
-        <ImageButton
-            android:id="@+id/btnToShoppingActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="#B4B5B3"
-            android:padding="7dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/shopping_icon" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:id = "@+id/btm_nav"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_nav"
+        />
 
 </LinearLayout>
