@@ -6,18 +6,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/researchText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="검색할 물품을 입력해주세요."></EditText>
-
-    <EditText
-        android:id="@+id/recipeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="레시피 이름을 입력하세요."></EditText>
-
     <Button
         android:id="@+id/addRecipeBtn"
         android:layout_width="match_parent"

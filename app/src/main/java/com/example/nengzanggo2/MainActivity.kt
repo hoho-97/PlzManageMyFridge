@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainListView : ListView
     lateinit var btn_add : FloatingActionButton
 
-    lateinit var btn_recipe : Button
 
     private var isFabOpen = false
 
