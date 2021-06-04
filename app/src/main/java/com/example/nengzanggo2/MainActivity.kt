@@ -10,6 +10,8 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.animation.ObjectAnimator
+import android.content.Intent
+
 //ddd
 class stockDBHelper(context: Context) : SQLiteOpenHelper(context,"stock",null,1) {
     override fun onCreate(db: SQLiteDatabase?) {
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainListView : ListView
     lateinit var btn_add : FloatingActionButton
 
+    lateinit var btn_recipe : Button
+
     private var isFabOpen = false
 
 
@@ -51,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         mainListView.adapter = ingredientAdapter
 
         btn_add = findViewById<FloatingActionButton>(R.id.btn_add)
-
+        btn_recipe=findViewById(R.id.btn_recipe)
 
 
         fabMain=findViewById<FloatingActionButton>(R.id.fabMain)
