@@ -16,10 +16,12 @@ import android.content.Intent
 class stockDBHelper(context: Context) : SQLiteOpenHelper(context,"stock",null,1) {
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL("CREATE TABLE stockTBL(sname CHAR(40),squantity CHAR(20),stime CHAR(20));")
+        db!!.execSQL("CREATE TABLE recipeTBL(RecipeName CHAR(20));")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db!!.execSQL("DROP TABLE IF EXISTS stockTBL")
+        db!!.execSQL("DROP TABLE IF EXISTS recipeTBL")
         onCreate(db)
     }
 }
@@ -107,6 +109,11 @@ class MainActivity : AppCompatActivity() {
             dlg.setNegativeButton("취소",null)
             dlg.show()
 
+        }
+
+        btn_recipe.setOnClickListener {
+            var intent = Intent(applicationContext, RecipeActivity::class.java)
+            startActivity(intent)
         }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

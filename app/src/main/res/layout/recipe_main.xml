@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/researchText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="검색할 물품을 입력해주세요."></EditText>
+
+    <EditText
+        android:id="@+id/recipeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="레시피 이름을 입력하세요."></EditText>
+
+    <Button
+        android:id="@+id/addRecipeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="레시피 추가" />
+
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:numColumns="4"
+        android:layout_weight="1">
+    </GridView>
+
+
+
+
+</LinearLayout>
