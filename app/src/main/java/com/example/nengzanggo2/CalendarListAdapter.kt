@@ -20,7 +20,7 @@ class CalendarListAdapter(val context: Context, val ingredientList: ArrayList<in
         /* LayoutInflater는 item을 Adapter에서 사용할 View로 부풀려주는(inflate) 역할을 한다. */
         val view: View = LayoutInflater.from(context).inflate(R.layout.calendar_lv_item, null)
 
-        /* 위에서 생성된 view를 res-layout-main_lv_item.xml 파일의 각 View와 연결하는 과정이다. */
+        /* 위에서 생성된 view를 res-layout-calendar_lv_item.xml 파일의 각 View와 연결하는 과정이다. */
         val ingredient_name = view.findViewById<TextView>(R.id.in_name)
         val ingredient_quantity = view.findViewById<TextView>(R.id.in_quantity)//유통기한아이디
         val ingredient_time = view.findViewById<TextView>(R.id.in_time)// 남은일수 아이디
@@ -62,6 +62,10 @@ class CalendarListAdapter(val context: Context, val ingredientList: ArrayList<in
     }
 
 
+
+
+
+    //D-Day계산 메소드드
     fun fewDay(beginDayYear:Int, beginDayMonth:Int, beginDayDate:Int, lastDayYear:Int, lastDayMonth:Int, lastDayDate:Int):Long{ //두 날짜간 차이 구하기
         //첫번째날
         val beginDay= Calendar.getInstance().apply{
