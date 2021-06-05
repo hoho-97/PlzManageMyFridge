@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        title="재고 관리"
 
         mainListView = findViewById<ListView>(R.id.mainListView)
 
@@ -206,19 +207,32 @@ class MainActivity : AppCompatActivity() {
             dialogView = View.inflate(this@MainActivity,R.layout.stock_dialog,null)
             var dlg = AlertDialog.Builder(this@MainActivity)
             EditText_name = dialogView.findViewById<View>(R.id.EditText_name) as EditText
-            EditText_quantity = dialogView.findViewById<View>(R.id.EditText_quantity) as EditText
-            EditText_time = dialogView.findViewById<View>(R.id.EditText_time) as EditText
+            var num_picker = dialogView.findViewById<NumberPicker>(R.id.num_picker) as NumberPicker
+            var date_picker2 = dialogView.findViewById<DatePicker>(R.id.date_picker2) as DatePicker
 
+            num_picker.minValue = 0
+            num_picker.maxValue = 100
+            num_picker.wrapSelectorWheel = true
+
+            num_picker.setOnValueChangedListener{num_picker,value,value2->
+                quantity= value2.toString()
+            }
+            date_picker2.setOnDateChangedListener{view, year, monthOfYear, dayOfMonth ->
+                selectYear=year.toString()
+                selectMonth=(monthOfYear+1).toString()
+                selectDay=dayOfMonth.toString()
+            }
 
             dlg.setView(dialogView)
 
             dlg.setPositiveButton("추가할래"){dialog , which ->
 
                 val stockDB = stockHelper.writableDatabase
-                stockDB.execSQL("INSERT INTO stockTBL VALUES ( '${EditText_name.text.toString()}' , '${EditText_quantity.text.toString()}' , '${EditText_time.text.toString()}' );")
+                str_date=selectYear+"."+selectMonth+"."+selectDay
+                stockDB.execSQL("INSERT INTO stockTBL VALUES ( '${EditText_name.text.toString()}' , '${quantity.toString()}' , '${str_date}' );")
                 stockDB.close()
 
-                var n_ingredient : ingredient = ingredient(EditText_name.text.toString(),EditText_quantity.text.toString(),EditText_time.text.toString())
+                var n_ingredient : ingredient = ingredient(EditText_name.text.toString(),quantity.toString(), str_date!!)
                 ingredientList.add(n_ingredient)
                 ingredientAdapter.notifyDataSetChanged()
 
