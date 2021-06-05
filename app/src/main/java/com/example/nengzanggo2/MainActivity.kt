@@ -225,7 +225,7 @@ class MainActivity : AppCompatActivity() {
 
             dlg.setView(dialogView)
 
-            dlg.setPositiveButton("추가할래"){dialog , which ->
+            dlg.setPositiveButton("추가하기"){dialog , which ->
 
                 val stockDB = stockHelper.writableDatabase
                 str_date=selectYear+"."+selectMonth+"."+selectDay
