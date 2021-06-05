@@ -8,8 +8,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import org.w3c.dom.Text
-
+//아에이오우
 class CalendarActivity : AppCompatActivity(){
     lateinit var calendar : CalendarView
     lateinit var item_name : TextView
