@@ -25,15 +25,16 @@ class CalendarActivity : AppCompatActivity(){
 
         //리스트뷰
         calendarListView = findViewById<ListView>(R.id.calendarListView)
-        val ingredientAdapter = MainListAdapter(this, ingredientList)
+        val ingredientAdapter = CalendarListAdapter(this, ingredientList) //어댑터 생성
         calendarListView.adapter = ingredientAdapter
+
         val stockDB = stockHelper.readableDatabase
         var cursor = stockDB.rawQuery("SELECT * FROM stockTBL",null)
         while(cursor.moveToNext())
         {
             var n_ingredient : ingredient = ingredient(cursor.getString(0),cursor.getString(1),cursor.getString(2))
-            ingredientList.add(n_ingredient)
-            ingredientAdapter.notifyDataSetChanged()
+            ingredientList.add(n_ingredient) //재료리스트에 추가
+            ingredientAdapter.notifyDataSetChanged() //어댑터에 추가 확인시키기(싱크로나이즈)
         }
 
 
