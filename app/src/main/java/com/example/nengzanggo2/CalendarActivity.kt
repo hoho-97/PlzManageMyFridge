@@ -17,7 +17,7 @@ class CalendarActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.order)
+        setContentView(R.layout.activity_calendar)
 
         calendar = findViewById(R.id.calendarView)
         item_name = findViewById(R.id.textView3)
