@@ -3,15 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/Item_calender"
-        android:icon="@android:drawable/ic_lock_idle_alarm"
-        android:title="Item3"
-        app:showAsAction="always|withText" />
+        android:id="@+id/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="always"
+        android:title="Search"/>
 
     <item
-        android:id="@+id/Item5"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Item5"
-        app:showAsAction="always|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/refresh"
+        app:showAsAction="always"
+        android:title="Search"/>
+
+
 </menu>
