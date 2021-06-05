@@ -4,6 +4,7 @@ import RecipeAdapter
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -12,15 +13,17 @@ import android.view.View
 import android.widget.EditText
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.recipe_main.*
+import java.io.File
 import java.io.FileNotFoundException
 
 
 class RecipeActivity : AppCompatActivity() {
 
-    var recipeList = arrayListOf<String>()  //recipe 이름 저장하는 배열
+    var recipeList = arrayListOf<recipe>()  //recipe 이름 저장하는 배열
     lateinit var gridView: GridView         //recipe 버튼뷰 GridView
     lateinit var recipeName : EditText      //recipe 추가시 입력되는 레시피명
     final val GET_GALLERY_IMAGE : Int = 200 //선택 이미지 상수
@@ -42,7 +45,7 @@ class RecipeActivity : AppCompatActivity() {
         val stockDB = stockHelper.readableDatabase
         var cursor = stockDB.rawQuery("SELECT * FROM recipeTBL",null)
         while(cursor.moveToNext()) {
-            var n_recipe = cursor.getString(0)
+            var n_recipe = recipe(cursor.getString(0), cursor.getString(1))
             recipeList.add(n_recipe)
             recipeAdapter.notifyDataSetChanged()
         }
@@ -57,7 +60,7 @@ class RecipeActivity : AppCompatActivity() {
             imageCute = dialogView.findViewById<View>(R.id.imageCute) as ImageView
             imageCute.setOnClickListener(View.OnClickListener {
                 val intent = Intent(Intent.ACTION_PICK)
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+                intent.type = MediaStore.Images.Media.CONTENT_TYPE
                 startActivityForResult(intent, GET_GALLERY_IMAGE)
             })
             dlg.setView(dialogView)
@@ -66,16 +69,16 @@ class RecipeActivity : AppCompatActivity() {
             dlg.setNegativeButton("추가할래!") { _, _ ->
                 recipeName = dialogView.findViewById<View>(R.id.recipeName) as EditText
 
+                var newRecipeName : String = recipeName.text.toString()
+                var newRecipeImage : String = getRealPathFromURI(uri)
+
                 //입력된 변수 DB에 저장
-                stockWriteDB.execSQL("INSERT INTO recipeTBL VALUES ( '${recipeName.text.toString()}' );")
+                stockWriteDB.execSQL("INSERT INTO recipeTBL VALUES ( '${newRecipeName}', '${newRecipeImage}' );")
                 stockWriteDB.close()
 
-                var newRecipe : String = recipeName.text.toString()
-                recipeList.add(newRecipe)
+
+                recipeList.add(recipe(newRecipeName, newRecipeImage))
                 recipeAdapter.notifyDataSetChanged()
-                setImage(uri)
-
-
             }
 
             dlg.show()
@@ -117,14 +120,16 @@ class RecipeActivity : AppCompatActivity() {
             uri = data.data!!
         }
     }
-    private fun setImage(uri: Uri) {
-        try {
-            val ins = contentResolver.openInputStream(uri)
-            val bitmap = BitmapFactory.decodeStream(ins)
-            testImage.setImageBitmap(bitmap)
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        }
+
+    //URI -> 절대경로(String)
+    private fun getRealPathFromURI(contentUri: Uri?): String {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor: Cursor? = contentResolver.query(contentUri!!, proj, null, null, null)
+        cursor?.moveToNext()
+        val path: String = cursor!!.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA))
+        val uri = Uri.fromFile(File(path))
+        cursor.close()
+        return path
     }
 }
 

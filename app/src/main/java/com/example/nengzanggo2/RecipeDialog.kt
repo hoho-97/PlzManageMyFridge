@@ -1,19 +1,23 @@
 package com.example.nengzanggo2
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.recipe_info.*
+import org.w3c.dom.Text
+import java.io.File
+import java.io.FileNotFoundException
 
-class RecipeDialog(context: Context, recipe: String) : BottomSheetDialog(context) {
+
+class RecipeDialog(context: Context, recipe: recipe) : BottomSheetDialog(context) {
     lateinit var playBtn : Button
     lateinit var closeImage : ImageView
     lateinit var recipeTitle : TextView
     lateinit var recipeImage : ImageView
+    lateinit var contextField : TextView
     init {
 
         //R.layout.confirm_bottom_dialog 하단 다이어로그 생성 버튼을 눌렀을 때 보여질 레이아웃
@@ -21,9 +25,11 @@ class RecipeDialog(context: Context, recipe: String) : BottomSheetDialog(context
         setContentView(view)
 
         recipeTitle = findViewById<TextView>(R.id.recipeTitle)!!
-        recipeTitle.text = recipe
-        /*recipeImage = findViewById<ImageView>(R.id.recipeImage)!!
-        recipeImage.setImageURI(recipeImgPath.toUri())*/
+        recipeTitle.text = recipe.name
+        recipeImage = findViewById<ImageView>(R.id.recipeImage)!!
+        setImage(recipe.image)
+        contextField = findViewById<TextView>(R.id.contextField)!!
+        contextField.text = recipe.image
         closeImage = findViewById<ImageView>(R.id.ic_close)!!
         playBtn = findViewById<Button>(R.id.playBtn)!!
         //확인 버튼
@@ -35,4 +41,15 @@ class RecipeDialog(context: Context, recipe: String) : BottomSheetDialog(context
         }
 
     }
+
+    private fun setImage(uri: String) {
+        try {
+            val file = File(uri)
+            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+            recipeImage.setImageBitmap(bitmap)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        }
+    }
+    
 }

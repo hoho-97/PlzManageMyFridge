@@ -6,12 +6,13 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.example.nengzanggo2.R
 import com.example.nengzanggo2.RecipeDialog
+import com.example.nengzanggo2.recipe
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 
 
-class RecipeAdapter(val context: Context, val recipeList: ArrayList<String>) : BaseAdapter() {
+class RecipeAdapter(val context: Context, val recipeList: ArrayList<recipe>) : BaseAdapter() {
 
     lateinit var dialogRecipe : BottomSheetDialog
 
@@ -25,7 +26,7 @@ class RecipeAdapter(val context: Context, val recipeList: ArrayList<String>) : B
 
         /* ArrayList<Dog>의 변수 dog의 이미지와 데이터를 ImageView와 TextView에 담는다. */
         val recipe = recipeList[position]
-        recipeBtn.text = recipe
+        recipeBtn.text = recipe.name
 
 
         view.setOnClickListener {
