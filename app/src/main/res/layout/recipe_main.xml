@@ -19,7 +19,14 @@
         android:gravity="center"
         android:numColumns="4"
         android:layout_weight="1">
+
     </GridView>
+
+    <ImageView
+        android:id="@+id/testImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/cute" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
