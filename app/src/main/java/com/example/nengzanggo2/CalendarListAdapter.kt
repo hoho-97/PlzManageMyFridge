@@ -25,7 +25,7 @@ class CalendarListAdapter(val context: Context, val ingredientList: ArrayList<in
         val ingredient_quantity = view.findViewById<TextView>(R.id.in_quantity)//유통기한아이디
         val ingredient_time = view.findViewById<TextView>(R.id.in_time)// 남은일수 아이디
 
-        /* ArrayList<Dog>의 변수 dog의 이미지와 데이터를 ImageView와 TextView에 담는다. */
+        /* ArrayList<Dog>의 변수 dog의 이미지와 데이터를 ImageView와 TextView에 담는다. *///////
         val ingredient = ingredientList[position] //db 한 행
 
         var exDateArray = ingredient.time.split(".")
