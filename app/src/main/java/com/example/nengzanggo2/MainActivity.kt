@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_main.*
 
 //ddd
 class stockDBHelper(context: Context) : SQLiteOpenHelper(context,"stock",null,1) {
@@ -354,11 +355,13 @@ class MainActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(fabCamera, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(fabEdit, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(btn_remove, "translationY", 0f).apply { start() }
+            ObjectAnimator.ofFloat(btn_mic, "translationY", 0f).apply { start() }
             fabMain.setImageResource(R.drawable.plus_icon)
         } else {
             ObjectAnimator.ofFloat(fabCamera, "translationY", -150f).apply { start() }
             ObjectAnimator.ofFloat(fabEdit, "translationY", -300f).apply { start() }
             ObjectAnimator.ofFloat(btn_remove, "translationY", -450f).apply { start() }
+            ObjectAnimator.ofFloat(btn_mic, "translationY", -600f).apply { start() }
             fabMain.setImageResource(R.drawable.x_icon)
         }
 
