@@ -9,7 +9,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_200"
+        android:background="@android:color/holo_blue_bright"
         android:text="   레시피를 추가해줘!"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -24,13 +24,13 @@
             android:id="@+id/imageDisappointed"
             android:layout_width="178dp"
             android:layout_height="136dp"
-            app:srcCompat="@drawable/smile" />
+            app:srcCompat="@drawable/disappointed" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="냉장이를 클릭하여 사진을 선택해주세요!"
+            android:text="삭제하고 싶은 레시피를 입력해주세요!"
             android:textColor="#000000"
             android:textSize="20sp" />
 

@@ -12,7 +12,7 @@
         android:id="@+id/layout_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#CCCCCC">
+        android:background="#008d62">
 
         <TextView
             android:id="@+id/recipeTitle"
@@ -27,7 +27,7 @@
             android:layout_toStartOf="@id/ic_close"
             android:layout_toLeftOf="@id/ic_close"
             android:gravity="center_vertical"
-            android:textColor="#222222"
+            android:textColor="#FFFFFF"
             android:textSize="22dp" />
 
         <ImageView
@@ -41,6 +41,12 @@
             android:src="@drawable/ic_baseline_close" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp" />
+
     <ImageView
         android:id="@+id/recipeImage"
         android:layout_width="wrap_content"
@@ -48,12 +54,30 @@
         android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/contextField"
+        android:id="@+id/textView10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="#008d62"
+        android:text="재료"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/recipeContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_weight="1"
-        android:text="test"
         android:textColor="#000000"
         android:textSize="20sp" />
 
@@ -62,6 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Play" />
+        android:text="Play"
+        app:backgroundTint="#FFFFFF" />
 
 </LinearLayout>
