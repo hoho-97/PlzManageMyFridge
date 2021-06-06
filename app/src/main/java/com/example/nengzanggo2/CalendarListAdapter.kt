@@ -32,7 +32,7 @@ class CalendarListAdapter(val context: Context, val ingredientList: ArrayList<in
         var exYEAR = exDateArray[0]
         var exMONTH = exDateArray[1]
         var exDAY = exDateArray[2]
-
+        //
         var now = LocalDate.now()
         var nowDate = now.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
         var nowDateArray = nowDate.split(".")
