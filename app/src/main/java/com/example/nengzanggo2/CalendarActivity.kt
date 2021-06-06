@@ -86,7 +86,7 @@ class CalendarActivity : AppCompatActivity(){
 
             if(remaintime<= 7) {
                 ingredientList.add(n_ingredient) //기한 임박 재료리스트에 추가
-                ingredientAdapter.notifyDataSetChanged() //어댑터에 추가 확인시키기(싱크로나이즈)깔깔쓰
+                ingredientAdapter.notifyDataSetChanged() //어댑터에 추가 확인시키기(싱크로나이즈)
             }
 
         }

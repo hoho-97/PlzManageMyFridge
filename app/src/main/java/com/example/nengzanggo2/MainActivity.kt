@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -17,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class stockDBHelper(context: Context) : SQLiteOpenHelper(context,"stock",null,1) {
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL("CREATE TABLE stockTBL(sname CHAR(40),squantity CHAR(20),stime CHAR(20));")
-        db!!.execSQL("CREATE TABLE recipeTBL(RecipeName CHAR(20), RecipeImage CHAR(200));")
+        db!!.execSQL("CREATE TABLE recipeTBL(RecipeName CHAR(20));")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -30,6 +31,7 @@ class stockDBHelper(context: Context) : SQLiteOpenHelper(context,"stock",null,1)
 class MainActivity : AppCompatActivity() {
 
     var ingredientList = arrayListOf<ingredient>()
+    var ingredientList_search = arrayListOf<ingredient>()
     lateinit var dialogView : View
     val stockHelper = stockDBHelper(this)
 
@@ -40,15 +42,17 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_add : FloatingActionButton
 
 
+
     lateinit var spinner_name : Spinner
     lateinit var spinner_name_delete : Spinner
     private var isFabOpen = false
 
-
+    lateinit var EditText_search : EditText
     lateinit var fabMain : FloatingActionButton
     lateinit var fabCamera : FloatingActionButton
     lateinit var fabEdit : FloatingActionButton
     lateinit var btn_remove : FloatingActionButton
+    var ingredientAdapter = MainListAdapter(this, ingredientList)
 
     var quantity : String? = null
     var selectYear : String? = null
@@ -65,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
         mainListView = findViewById<ListView>(R.id.mainListView)
 
-        val ingredientAdapter = MainListAdapter(this, ingredientList)
+
         mainListView.adapter = ingredientAdapter
 
         btn_add = findViewById<FloatingActionButton>(R.id.btn_add)
@@ -131,7 +135,7 @@ class MainActivity : AppCompatActivity() {
 
                 val stockDB = stockHelper.writableDatabase
                 str_name=spinner_name.selectedItem.toString()
-                str_date="'"+selectYear+"."+selectMonth+"."+selectDay+".'"
+                str_date="'"+selectYear+"."+selectMonth+"."+selectDay+"'"
                 println(str_name)
                 println(quantity)
                 stockDB.execSQL("UPDATE stockTBL SET stime =" + str_date + " WHERE sName = '" + str_name + "';")
@@ -242,6 +246,7 @@ class MainActivity : AppCompatActivity() {
             dlg.setNegativeButton("취소",null)
             dlg.show()
 
+
         }
 
         val bottomNavigation : BottomNavigationView = findViewById(R.id.btm_nav)
@@ -269,9 +274,78 @@ class MainActivity : AppCompatActivity() {
         }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        var menuInflater = menuInflater
         menuInflater.inflate(R.menu.main_menu, menu)
 
-        return super.onCreateOptionsMenu(menu)
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId)
+        {
+            R.id.action_search-> {
+                dialogView = View.inflate(this@MainActivity, R.layout.search, null)
+                var EditText_search = dialogView.findViewById<EditText>(R.id.EditText_search)
+                var dlg = AlertDialog.Builder(this@MainActivity)
+
+                var name_list : ArrayList<String> = arrayListOf() // 재료명 스피너에 담길 배열
+                var name_list_search : ArrayList<String> = arrayListOf() // 재료명 스피너에 담길 배열
+                var i=0
+                ingredientAdapter = MainListAdapter(this, ingredientList)
+                mainListView.adapter = ingredientAdapter
+
+                val stockDB = stockHelper.readableDatabase
+                var cursor = stockDB.rawQuery("SELECT * FROM stockTBL",null)
+                while(cursor.moveToNext())
+                {
+                    var n_ingredient : ingredient = ingredient(cursor.getString(0),cursor.getString(1),cursor.getString(2))
+                    name_list.add(cursor.getString(0))
+                }
+
+
+                dlg.setView(dialogView)
+                dlg.setTitle("재료 검색")
+
+
+
+                dlg.setPositiveButton("검색하기"){dialog , which ->
+
+                    var cursor2 = stockDB.rawQuery("SELECT * FROM stockTBL",null)
+                    while(cursor2.moveToNext())
+                    {
+                        if(EditText_search.text.toString().equals(name_list[i])) //스피너 재료명과 리스트뷰에 재고명이 같을 경우
+                        {
+                            ingredientList.clear()
+                            var n_ingredient : ingredient = ingredient(cursor2.getString(0),cursor2.getString(1),cursor2.getString(2))
+                            ingredientList.add(n_ingredient)
+                            ingredientAdapter.notifyDataSetChanged()
+                            break
+                        }
+                        i++
+                    }
+                    //리스트뷰 최신화
+                    Toast.makeText(applicationContext, "검색됨", Toast.LENGTH_SHORT).show()
+                }
+                dlg.setNegativeButton("취소",null)
+                dlg.show()
+            }
+            R.id.action_refresh->{
+                ingredientList.clear()
+                ingredientAdapter = MainListAdapter(this, ingredientList)
+                mainListView.adapter = ingredientAdapter
+                val stockDB = stockHelper.readableDatabase
+                var cursor = stockDB.rawQuery("SELECT * FROM stockTBL",null)
+                while(cursor.moveToNext())
+                {
+                    var n_ingredient : ingredient = ingredient(cursor.getString(0),cursor.getString(1),cursor.getString(2))
+                    ingredientList.add(n_ingredient)
+                    ingredientAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+        return false
     }
     private fun toggleFab() {
 
