@@ -60,7 +60,7 @@ class CalendarActivity : AppCompatActivity(){
         calendar = findViewById(R.id.calendarView)
 
         //리스트뷰
-        calendarListView = findViewById<ListView>(R.id.calendarListView)
+        calendarListView = findViewById<ListView>(R.id.calListView)
         val ingredientAdapter = CalendarListAdapter(this, ingredientList) //어댑터 생성
         calendarListView.adapter = ingredientAdapter
 
