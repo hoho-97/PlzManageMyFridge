@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var fabCamera : FloatingActionButton
     lateinit var fabEdit : FloatingActionButton
     lateinit var btn_remove : FloatingActionButton
-
+    var ingredientAdapter = MainListAdapter(this, ingredientList)
 
     var quantity : String? = null
     var selectYear : String? = null
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
         mainListView = findViewById<ListView>(R.id.mainListView)
 
-        val ingredientAdapter = MainListAdapter(this, ingredientList)
+
         mainListView.adapter = ingredientAdapter
 
         btn_add = findViewById<FloatingActionButton>(R.id.btn_add)
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
 
                 val stockDB = stockHelper.writableDatabase
                 str_name=spinner_name.selectedItem.toString()
-                str_date="'"+selectYear+"."+selectMonth+"."+selectDay+".'"
+                str_date="'"+selectYear+"."+selectMonth+"."+selectDay+"'"
                 println(str_name)
                 println(quantity)
                 stockDB.execSQL("UPDATE stockTBL SET stime =" + str_date + " WHERE sName = '" + str_name + "';")
@@ -246,6 +246,7 @@ class MainActivity : AppCompatActivity() {
             dlg.setNegativeButton("취소",null)
             dlg.show()
 
+
         }
 
         val bottomNavigation : BottomNavigationView = findViewById(R.id.btm_nav)
@@ -292,7 +293,7 @@ class MainActivity : AppCompatActivity() {
                 var name_list : ArrayList<String> = arrayListOf() // 재료명 스피너에 담길 배열
                 var name_list_search : ArrayList<String> = arrayListOf() // 재료명 스피너에 담길 배열
                 var i=0
-                val ingredientAdapter = MainListAdapter(this, ingredientList)
+                ingredientAdapter = MainListAdapter(this, ingredientList)
                 mainListView.adapter = ingredientAdapter
 
                 val stockDB = stockHelper.readableDatabase
@@ -332,7 +333,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_refresh->{
                 ingredientList.clear()
-                val ingredientAdapter = MainListAdapter(this, ingredientList)
+                ingredientAdapter = MainListAdapter(this, ingredientList)
                 mainListView.adapter = ingredientAdapter
                 val stockDB = stockHelper.readableDatabase
                 var cursor = stockDB.rawQuery("SELECT * FROM stockTBL",null)
