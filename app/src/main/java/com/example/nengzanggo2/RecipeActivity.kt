@@ -13,10 +13,7 @@ import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
-import android.widget.GridView
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -34,6 +31,7 @@ class RecipeActivity : AppCompatActivity() {
     lateinit var imageDissapointed: ImageView       //이미지 선택 아이콘
     val stockHelper = stockDBHelper(this)   //DB접근 변수
     lateinit var uri : Uri                  //이미지 선택한뒤 DB에 저장하기 위한 URI변수
+
     private var isFabOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +81,9 @@ class RecipeActivity : AppCompatActivity() {
             var dlg = AlertDialog.Builder(this@RecipeActivity)
             val stockWriteDB = stockHelper.writableDatabase
 
+
+
+
             imageSmile = dialogView.findViewById<View>(R.id.imageDisappointed) as ImageView
             imageSmile.setOnClickListener(View.OnClickListener {
                 val intent = Intent(Intent.ACTION_PICK)
@@ -102,21 +103,50 @@ class RecipeActivity : AppCompatActivity() {
                 var dialogView_sub = View.inflate(this@RecipeActivity, R.layout.recipe_ingredient_dialog, null)
                 var dlg_sub = AlertDialog.Builder(this@RecipeActivity)
                 dlg_sub.setView(dialogView_sub)
+                /*##################################################################################*/
+                var list_unit = arrayListOf("kg","g","개","병","통") // 재료명 스피너에 담길 배열
 
+                var recipeIngUnit = arrayOfNulls<Spinner>(10)
+                var recipeIngUnitId = arrayOf(R.id.recipeUnit1,R.id.recipeUnit2,R.id.recipeUnit3,R.id.recipeUnit4,
+                        R.id.recipeUnit5,R.id.recipeUnit6,R.id.recipeUnit7,R.id.recipeUnit8,R.id.recipeUnit9,R.id.recipeUnit10)
+
+                for(i in recipeIngUnitId.indices) {
+                    recipeIngUnit[i] = dialogView_sub.findViewById<Spinner>(recipeIngUnitId[i]) as Spinner
+                    recipeIngUnit[i]!!.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_unit)
+                }
+                /*##################################################################################*/
                 var imageSmile = dialogView_sub.findViewById<View>(R.id.imageSmile_) as ImageView
                 imageSmile.setImageURI(uri)
                 dlg_sub.setNegativeButton("추가할래!") { _, _ ->
-                    var recipeIng = arrayOfNulls<EditText>(20)
-                    var recipeIngId = arrayOf(R.id.recipeIng1, R.id.recipeIngNum1, R.id.recipeIng2, R.id.recipeIngNum2,
-                            R.id.recipeIng3, R.id.recipeIngNum3,R.id.recipeIng4, R.id.recipeIngNum4,
-                            R.id.recipeIng5, R.id.recipeIngNum5,R.id.recipeIng6, R.id.recipeIngNum6,
-                            R.id.recipeIng7, R.id.recipeIngNum7,R.id.recipeIng8, R.id.recipeIngNum8,
-                            R.id.recipeIng9, R.id.recipeIngNum9,R.id.recipeIng10, R.id.recipeIngNum10)
+
+                    var recipeIng = arrayOfNulls<EditText>(10)
+                    var recipeIngId = arrayOf(R.id.recipeIng1,  R.id.recipeIng2, R.id.recipeIng3, R.id.recipeIng4,
+                            R.id.recipeIng5, R.id.recipeIng6, R.id.recipeIng7, R.id.recipeIng8,
+                            R.id.recipeIng9, R.id.recipeIng10 )
+                    var recipeIngNum = arrayOfNulls<EditText>(10)
+                    var recipeIngNumId = arrayOf(R.id.recipeIngNum1, R.id.recipeIngNum2,R.id.recipeIngNum3,
+                            R.id.recipeIngNum4, R.id.recipeIngNum5, R.id.recipeIngNum6, R.id.recipeIngNum7,R.id.recipeIngNum8,
+                            R.id.recipeIngNum9, R.id.recipeIngNum10)
+                    /*var recipeIngUnit = arrayOfNulls<Spinner>(10)
+                    var recipeIngUnitId = arrayOf(R.id.recipeUnit1,R.id.recipeUnit2,R.id.recipeUnit3,R.id.recipeUnit4,
+                            R.id.recipeUnit5,R.id.recipeUnit6,R.id.recipeUnit7,R.id.recipeUnit8,R.id.recipeUnit9,R.id.recipeUnit10)*/
+
                     for(i in recipeIngId.indices) {
                         recipeIng[i] = dialogView_sub.findViewById<EditText>(recipeIngId[i])
+                        recipeIngNum[i] = dialogView_sub.findViewById<EditText>(recipeIngNumId[i])
+                        /*recipeIngUnit[i] = dialogView_sub.findViewById<Spinner>(recipeIngUnitId[i]) as Spinner
+                        recipeIngUnit[i]?.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_unit)*/
+                    }
+                    for(i in recipeIngId.indices) {
 
-                        var text: String = recipeIng[i]?.text.toString()
-                        if(text == "") break
+
+                        var textIng: String = recipeIng[i]?.text.toString()
+                        var textIngNum: String = recipeIngNum[i]?.text.toString()
+                        var textIngUnit: String = recipeIngUnit[i]?.selectedItem.toString()
+
+
+                        if(textIng == "" || textIngNum == "" || textIngUnit=="") break
+                        var text = "$textIng,$textIngNum$textIngUnit"
                         newRecipeContent = "$newRecipeContent$text,"
                     }
                     //입력된 변수 DB에 저장
@@ -131,9 +161,6 @@ class RecipeActivity : AppCompatActivity() {
 
                 //************레시피 재료 추가 dialog 끝!!
                 dlg_sub.show()
-
-
-
 
 
             }

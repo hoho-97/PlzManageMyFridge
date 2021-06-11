@@ -27,17 +27,18 @@
             app:srcCompat="@drawable/smile" />
 
         <TableLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/recipeIng1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:ems="10"
                     android:hint="재료1"
                     android:inputType="textPersonName" />
@@ -47,19 +48,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="개수"
                     android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/recipeUnit1"
+                    android:layout_width="184dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/recipeIng2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="재료2"
                     android:inputType="textPersonName" />
 
@@ -68,19 +77,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="개수"
                     android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/recipeUnit2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/recipeIng3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="재료3"
                     android:inputType="textPersonName" />
 
@@ -89,19 +106,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="개수"
                     android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/recipeUnit3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/recipeIng4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="재료4"
                     android:inputType="textPersonName" />
 
@@ -110,19 +135,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="개수"
                     android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/recipeUnit4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/recipeIng5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="재료5"
                     android:inputType="textPersonName" />
 
@@ -131,19 +164,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="개수"
                     android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/recipeUnit5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/recipeIng6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="재료6"
                     android:inputType="textPersonName" />
 
@@ -152,18 +193,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="개수"
                     android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/recipeUnit6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/recipeIng7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="재료7"
                     android:inputType="textPersonName" />
 
@@ -172,18 +222,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="개수"
                     android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/recipeUnit7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/recipeIng8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="재료8"
                     android:inputType="textPersonName" />
 
@@ -192,17 +251,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="개수"
                     android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/recipeUnit8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/recipeIng9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:ems="10"
                     android:hint="재료9"
                     android:inputType="textPersonName" />
@@ -211,19 +279,28 @@
                     android:id="@+id/recipeIngNum9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:ems="10"
                     android:hint="개수"
                     android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/recipeUnit9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/recipeIng10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="재료10"
                     android:inputType="textPersonName" />
 
@@ -232,8 +309,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:layout_weight="1"
                     android:hint="개수"
                     android:inputType="textPersonName" />
+
+                <Spinner
+                    android:id="@+id/recipeUnit10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </TableRow>
         </TableLayout>
 

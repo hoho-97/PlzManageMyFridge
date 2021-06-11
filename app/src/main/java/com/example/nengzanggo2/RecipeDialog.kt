@@ -31,7 +31,7 @@ class RecipeDialog(context: Context, recipe: recipe) : BottomSheetDialog(context
         contextField = findViewById<TextView>(R.id.recipeContent)!!
         var st = StringTokenizer(recipe.recipeContent, ",")
         while(st.hasMoreTokens()) {
-            contextField.text = contextField.text.toString() + st.nextToken() + "\t\t"+st.nextToken() +"\n"
+            contextField.text = contextField.text.toString() + st.nextToken() + "\t\t\t\t\t"+st.nextToken() +"\n"
         }
 
         closeImage = findViewById<ImageView>(R.id.ic_close)!!
