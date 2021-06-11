@@ -11,13 +11,50 @@ import android.view.animation.AnimationUtils
 import android.widget.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.order.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 //음성인식 부분에 필요한거
 private const val SPEECH_REQUEST_CODE = 0
 
 class OrderActivity : Activity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    val stockHelper = stockDBHelper(this)
+    var ingredientList = arrayListOf<ingredient>()
+    lateinit var orderListView: ListView
+
+    //D-Day계산 메소드드
+    fun fewDay(beginDayYear:Int, beginDayMonth:Int, beginDayDate:Int, lastDayYear:Int, lastDayMonth:Int, lastDayDate:Int):Long{ //두 날짜간 차이 구하기
+        //첫번째날
+        val beginDay= Calendar.getInstance().apply{
+            set(Calendar.YEAR, beginDayYear)
+            set(Calendar.MONTH, beginDayMonth)
+            set(Calendar.DAY_OF_MONTH, beginDayDate)
+        }.timeInMillis
+
+        //두번째날
+        val lastDay= Calendar.getInstance().apply{
+            set(Calendar.YEAR, lastDayYear)
+            set(Calendar.MONTH, lastDayMonth)
+            set(Calendar.DAY_OF_MONTH, lastDayDate)
+        }.timeInMillis
+
+        val fewDay = getIgnoredTimeDays(lastDay) - getIgnoredTimeDays(beginDay)
+        return fewDay / (24*60*60*1000)
+    }
+    fun getIgnoredTimeDays(time: Long): Long{
+        return Calendar.getInstance().apply{
+            timeInMillis = time
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE,0)
+            set(Calendar.SECOND,0)
+            set(Calendar.MILLISECOND,0)
+        }.timeInMillis
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {//
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order)
 
@@ -41,6 +78,53 @@ class OrderActivity : Activity() {
         btnMic.setOnClickListener {
             displaySpeechRecognizer()
         }
+
+
+        orderListView = findViewById<ListView>(R.id.orderListView)
+        val ingredientAdapter = CalendarListAdapter(this, ingredientList) //어댑터 생성
+        orderListView.adapter = ingredientAdapter
+
+        val stockDB = stockHelper.readableDatabase
+        var cursor = stockDB.rawQuery("SELECT * FROM stockTBL",null)
+        while(cursor.moveToNext())
+        {
+            var n_ingredient : ingredient = ingredient(cursor.getString(0),cursor.getString(1),cursor.getString(2))
+
+            var exDateArray = n_ingredient.time.split(".")
+            var exYEAR = exDateArray[0]
+            var exMONTH = exDateArray[1]
+            var exDAY = exDateArray[2]
+
+            var now = LocalDate.now()
+            var nowDate = now.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+            var nowDateArray = nowDate.split(".")
+            var nowYEAR = nowDateArray[0]
+            var nowMONTH = nowDateArray[1]
+            var nowDAY = nowDateArray[2]
+
+            var remaintime = fewDay(nowYEAR.toInt(),nowMONTH.toInt(),nowDAY.toInt(),exYEAR.toInt(),exMONTH.toInt(),exDAY.toInt())
+
+            if(remaintime<= 3) {
+                ingredientList.add(n_ingredient) //기한 임박 재료리스트에 추가
+                ingredientAdapter.notifyDataSetChanged() //어댑터에 추가 확인시키기(싱크로나이즈)
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         val titleArr = arrayOf("된장찌개", "김치찌개", "순두부찌개", "제육볶음")
         var imageList = intArrayOf(

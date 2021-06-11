@@ -3,9 +3,8 @@
 
     <item
         android:id="@+id/home"
-        android:title="재고확인"
         android:icon="@drawable/refrigerator_icon"
-        />
+        android:title="재고관리" />
     <item
         android:id="@+id/recipe"
         android:title="레시피"
