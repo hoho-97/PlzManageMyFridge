@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var spinner_name_delete : Spinner
     private var isFabOpen = false
 
+    lateinit var EditText_recommend : EditText
     lateinit var EditText_search : EditText
     lateinit var fabMain : FloatingActionButton
     lateinit var fabCamera : FloatingActionButton
@@ -350,6 +351,25 @@ class MainActivity : AppCompatActivity() {
                     ingredientList.add(n_ingredient)
                     ingredientAdapter.notifyDataSetChanged()
                 }
+            }
+            R.id.action_recommend->{
+                dialogView = View.inflate(this@MainActivity, R.layout.recommend, null)
+                var EditText_recommend = dialogView.findViewById<EditText>(R.id.EditText_recommend)
+                var dlg = AlertDialog.Builder(this@MainActivity)
+
+                dlg.setView(dialogView)
+                dlg.setTitle("레시피 추천")
+
+                dlg.setPositiveButton("추천 레시피 보기") { dialog, which ->
+
+                    var str_recommend: String
+                    str_recommend = EditText_recommend.text.toString()
+                    var intent = Intent(applicationContext, RecipeActivity::class.java)
+                    intent.putExtra("recommend", str_recommend)
+                    startActivity(intent)
+                }
+
+                dlg.show()
             }
         }
         return false
