@@ -13,7 +13,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_main.*
 
 //ddd
 class stockDBHelper(context: Context) : SQLiteOpenHelper(context,"stock",null,1) {
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_add : FloatingActionButton
 
 
-
+    lateinit var spinner_unit : Spinner
     lateinit var spinner_name : Spinner
     lateinit var spinner_name_delete : Spinner
     private var isFabOpen = false
@@ -62,6 +61,7 @@ class MainActivity : AppCompatActivity() {
     var str_name : String? = null
     var str_date : String? = null
     var str_delete : String? = null
+    var str_unit : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -215,6 +215,11 @@ class MainActivity : AppCompatActivity() {
             var num_picker = dialogView.findViewById<NumberPicker>(R.id.num_picker) as NumberPicker
             var date_picker2 = dialogView.findViewById<DatePicker>(R.id.date_picker2) as DatePicker
 
+            var name_list_unit : ArrayList<String> = arrayListOf("kg","g","개","병") // 재료명 스피너에 담길 배열
+            spinner_unit = dialogView.findViewById<Spinner>(R.id.spinner_unit) as Spinner
+            spinner_unit.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, name_list_unit)
+
+
             num_picker.minValue = 0
             num_picker.maxValue = 100
             num_picker.wrapSelectorWheel = true
@@ -232,12 +237,13 @@ class MainActivity : AppCompatActivity() {
 
             dlg.setPositiveButton("추가하기"){dialog , which ->
 
+                str_unit=spinner_unit.selectedItem.toString()
                 val stockDB = stockHelper.writableDatabase
                 str_date=selectYear+"."+selectMonth+"."+selectDay
-                stockDB.execSQL("INSERT INTO stockTBL VALUES ( '${EditText_name.text.toString()}' , '${quantity.toString()}' , '${str_date}' );")
+                stockDB.execSQL("INSERT INTO stockTBL VALUES ( '${EditText_name.text.toString()+"($str_unit)"}' , '${quantity.toString()}' , '${str_date}' );")
                 stockDB.close()
 
-                var n_ingredient : ingredient = ingredient(EditText_name.text.toString(),quantity.toString(), str_date!!)
+                var n_ingredient : ingredient = ingredient(EditText_name.text.toString()+"($str_unit)",quantity.toString(), str_date!!)
                 ingredientList.add(n_ingredient)
                 ingredientAdapter.notifyDataSetChanged()
 
@@ -355,13 +361,11 @@ class MainActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(fabCamera, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(fabEdit, "translationY", 0f).apply { start() }
             ObjectAnimator.ofFloat(btn_remove, "translationY", 0f).apply { start() }
-            ObjectAnimator.ofFloat(btn_mic, "translationY", 0f).apply { start() }
             fabMain.setImageResource(R.drawable.plus_icon)
         } else {
             ObjectAnimator.ofFloat(fabCamera, "translationY", -150f).apply { start() }
             ObjectAnimator.ofFloat(fabEdit, "translationY", -300f).apply { start() }
             ObjectAnimator.ofFloat(btn_remove, "translationY", -450f).apply { start() }
-            ObjectAnimator.ofFloat(btn_mic, "translationY", -600f).apply { start() }
             fabMain.setImageResource(R.drawable.x_icon)
         }
 
