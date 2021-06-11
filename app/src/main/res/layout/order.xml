@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,24 +16,26 @@
             android:id="@+id/Edit1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="9"
+            android:layout_weight="10"
             android:hint="검색하세요."
             android:padding="5dp"
             android:textSize="20dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="검색" />
+            android:icon="@android:drawable/ic_menu_search"
+            android:src="@drawable/ic_search_black_24dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnMic"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="음성" />
+            android:icon="@drawable/voice"
+            android:src="@android:drawable/ic_btn_speak_now" />
 
     </LinearLayout>
 
@@ -49,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="검색추천"
+            android:text="재고확인"
             android:textColor="#000000"
             android:textSize="15dp" />
 
@@ -70,22 +71,6 @@
             </LinearLayout>
         </ScrollView>
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="추천레시피!!"
-            android:textColor="#000000"
-            android:textSize="15dp" />
-
-        <ViewFlipper
-            android:id="@+id/viewFlipper1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:inAnimation="@android:anim/slide_in_left"
-            android:outAnimation="@android:anim/slide_out_right"></ViewFlipper>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
