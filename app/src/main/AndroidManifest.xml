@@ -12,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NengZangGo2"
-        android:requestLegacyExternalStorage = "true">
-        <activity android:name=".animation">
+        android:requestLegacyExternalStorage = "true"
+        android:usesCleartextTraffic="true">
+
+    <activity android:name=".animation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
