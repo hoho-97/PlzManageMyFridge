@@ -216,7 +216,7 @@ class MainActivity : AppCompatActivity() {
             var str_quan : String
             var date_picker2 = dialogView.findViewById<DatePicker>(R.id.date_picker2) as DatePicker
 
-            var name_list_unit : ArrayList<String> = arrayListOf("kg","g","개","병") // 재료명 스피너에 담길 배열
+            var name_list_unit : ArrayList<String> = arrayListOf("kg","g","병","개","통") // 재료명 스피너에 담길 배열
             spinner_unit = dialogView.findViewById<Spinner>(R.id.spinner_unit) as Spinner
             spinner_unit.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, name_list_unit)
 

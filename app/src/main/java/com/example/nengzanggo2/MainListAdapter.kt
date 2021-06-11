@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 
 //ㅎㅇ
 class MainListAdapter(val context: Context, val ingredientList: ArrayList<ingredient>) : BaseAdapter() {
@@ -25,17 +24,6 @@ class MainListAdapter(val context: Context, val ingredientList: ArrayList<ingred
         ingredient_quantity.text = ingredient.quantity
         ingredient_time.text = ingredient.time
 
-        view.setOnClickListener{
-            var dialogView : View
-            dialogView = View.inflate(context,R.layout.recommend,null)
-            var dlg = AlertDialog.Builder(context)
-            dlg.setView(dialogView)
-            // 삭제하기 버튼 클릭시
-            dlg.setPositiveButton("추천 레시피 보기") { dialog, which ->
-            }
-            dlg.setNegativeButton("취소",null)
-            dlg.show()
-        }
 
 
 
