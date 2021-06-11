@@ -47,12 +47,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var spinner_name_delete : Spinner
     private var isFabOpen = false
 
+    lateinit var EditText_quan2 : EditText
     lateinit var EditText_recommend : EditText
     lateinit var EditText_search : EditText
     lateinit var fabMain : FloatingActionButton
     lateinit var fabCamera : FloatingActionButton
     lateinit var fabEdit : FloatingActionButton
     lateinit var btn_remove : FloatingActionButton
+
+    lateinit var EditText_quan : EditText
     var ingredientAdapter = MainListAdapter(this, ingredientList)
 
     var quantity : String? = null
@@ -99,12 +102,10 @@ class MainActivity : AppCompatActivity() {
         fabEdit.setOnClickListener {
             dialogView = View.inflate(this@MainActivity,R.layout.stock_dialog_update,null)
             var dlg = AlertDialog.Builder(this@MainActivity)
-            var num_picker = dialogView.findViewById<NumberPicker>(R.id.num_picker) as NumberPicker
+            EditText_quan2 = dialogView.findViewById<View>(R.id.EditText_quan2) as EditText
             var date_picker = dialogView.findViewById<DatePicker>(R.id.date_picker) as DatePicker
+            var str_quan2 :String
 
-            num_picker.minValue = 0
-            num_picker.maxValue = 100
-            num_picker.wrapSelectorWheel = true
 
             var name_list : ArrayList<String> = arrayListOf() // 재료명 스피너에 담길 배열
 
@@ -121,9 +122,7 @@ class MainActivity : AppCompatActivity() {
 
             dlg.setView(dialogView)
 
-            num_picker.setOnValueChangedListener{num_picker,value,value2->
-                quantity= value2.toString()
-            }
+
             date_picker.setOnDateChangedListener{view, year, monthOfYear, dayOfMonth ->
                 selectYear=year.toString()
                 selectMonth=(monthOfYear+1).toString()
@@ -134,14 +133,14 @@ class MainActivity : AppCompatActivity() {
 
             // 수정하기 버튼 클릭시
             dlg.setPositiveButton("수정하기"){dialog , which ->
-
+                str_quan2 = EditText_quan2.text.toString()
                 val stockDB = stockHelper.writableDatabase
                 str_name=spinner_name.selectedItem.toString()
                 str_date="'"+selectYear+"."+selectMonth+"."+selectDay+"'"
                 println(str_name)
                 println(quantity)
                 stockDB.execSQL("UPDATE stockTBL SET stime =" + str_date + " WHERE sName = '" + str_name + "';")
-                stockDB.execSQL("UPDATE stockTBL SET squantity =" + quantity + " WHERE sName = '" + str_name + "';")
+                stockDB.execSQL("UPDATE stockTBL SET squantity =" + str_quan2 + " WHERE sName = '" + str_name + "';")
 
                 //리스트뷰 최신화
                 ingredientList.clear()
@@ -213,7 +212,8 @@ class MainActivity : AppCompatActivity() {
             dialogView = View.inflate(this@MainActivity,R.layout.stock_dialog,null)
             var dlg = AlertDialog.Builder(this@MainActivity)
             EditText_name = dialogView.findViewById<View>(R.id.EditText_name) as EditText
-            var num_picker = dialogView.findViewById<NumberPicker>(R.id.num_picker) as NumberPicker
+            EditText_quan = dialogView.findViewById<View>(R.id.EditText_quan) as EditText
+            var str_quan : String
             var date_picker2 = dialogView.findViewById<DatePicker>(R.id.date_picker2) as DatePicker
 
             var name_list_unit : ArrayList<String> = arrayListOf("kg","g","개","병") // 재료명 스피너에 담길 배열
@@ -221,13 +221,7 @@ class MainActivity : AppCompatActivity() {
             spinner_unit.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, name_list_unit)
 
 
-            num_picker.minValue = 0
-            num_picker.maxValue = 100
-            num_picker.wrapSelectorWheel = true
 
-            num_picker.setOnValueChangedListener{num_picker,value,value2->
-                quantity= value2.toString()
-            }
             date_picker2.setOnDateChangedListener{view, year, monthOfYear, dayOfMonth ->
                 selectYear=year.toString()
                 selectMonth=(monthOfYear+1).toString()
@@ -237,14 +231,14 @@ class MainActivity : AppCompatActivity() {
             dlg.setView(dialogView)
 
             dlg.setPositiveButton("추가하기"){dialog , which ->
-
+                str_quan=EditText_quan.text.toString()
                 str_unit=spinner_unit.selectedItem.toString()
                 val stockDB = stockHelper.writableDatabase
                 str_date=selectYear+"."+selectMonth+"."+selectDay
-                stockDB.execSQL("INSERT INTO stockTBL VALUES ( '${EditText_name.text.toString()+"($str_unit)"}' , '${quantity.toString()}' , '${str_date}' );")
+                stockDB.execSQL("INSERT INTO stockTBL VALUES ( '${EditText_name.text.toString()+"($str_unit)"}' , '${str_quan.toString()}' , '${str_date}' );")
                 stockDB.close()
 
-                var n_ingredient : ingredient = ingredient(EditText_name.text.toString()+"($str_unit)",quantity.toString(), str_date!!)
+                var n_ingredient : ingredient = ingredient(EditText_name.text.toString()+"($str_unit)",str_quan.toString(), str_date!!)
                 ingredientList.add(n_ingredient)
                 ingredientAdapter.notifyDataSetChanged()
 
