@@ -10,10 +10,13 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -45,13 +48,28 @@ class RecipeActivity : AppCompatActivity() {
         val recipeAdapter = RecipeAdapter(this, recipeList) //레시피 추가 어댑터 선언
         gridView.adapter = recipeAdapter
 
+
         //저장된 DB 내용 출력
         val stockDB = stockHelper.readableDatabase
-        var cursor = stockDB.rawQuery("SELECT * FROM recipeTBL",null)
-        while(cursor.moveToNext()) {
-            var n_recipe = recipe(cursor.getString(0), cursor.getString(1),cursor.getString(2))
-            recipeList.add(n_recipe)
-            recipeAdapter.notifyDataSetChanged()
+        var intent = intent
+        if(intent.hasExtra("recommend")) {
+            var recommend_ingredient = intent.getStringExtra("recommend")
+            var cursor = stockDB.rawQuery("SELECT * FROM recipeTBL", null)
+            while (cursor.moveToNext()) {
+                if(cursor.getString(2).contains("$recommend_ingredient")) {
+                    var n_recipe = recipe(cursor.getString(0), cursor.getString(1), cursor.getString(2))
+                    recipeList.add(n_recipe)
+                    recipeAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+        else {
+            var cursor = stockDB.rawQuery("SELECT * FROM recipeTBL", null)
+            while (cursor.moveToNext()) {
+                var n_recipe = recipe(cursor.getString(0), cursor.getString(1), cursor.getString(2))
+                recipeList.add(n_recipe)
+                recipeAdapter.notifyDataSetChanged()
+            }
         }
 
         fabMain.setOnClickListener {
@@ -183,7 +201,32 @@ class RecipeActivity : AppCompatActivity() {
             true
         }
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        var menuInflater = menuInflater
+        menuInflater.inflate(R.menu.recipe_menu, menu)
 
+
+        return super.onCreateOptionsMenu(menu);
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId)
+        {
+            R.id.action_recipe_refresh->{
+                recipeList.clear()
+                val recipeAdapter = RecipeAdapter(this, recipeList)
+                gridView.adapter = recipeAdapter
+                val stockDB = stockHelper.readableDatabase
+                var cursor = stockDB.rawQuery("SELECT * FROM recipeTBL",null)
+                while(cursor.moveToNext()) {
+                    var n_recipe = recipe(cursor.getString(0), cursor.getString(1),cursor.getString(2))
+                    recipeList.add(n_recipe)
+                    recipeAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+        return false
+    }
 
     //이미지 출력을 위한 ResultActivity 메소드
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
