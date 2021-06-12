@@ -1,6 +1,7 @@
 package com.example.nengzanggo2
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -8,22 +9,33 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
 //ㅎㅇ
-class CalendarListAdapter(val context: Context, val ingredientList: ArrayList<ingredient>) : BaseAdapter() {
+class OrderListAdapter(val context: Context, val ingredientList: ArrayList<ingredient>) : BaseAdapter() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         /* LayoutInflater는 item을 Adapter에서 사용할 View로 부풀려주는(inflate) 역할을 한다. */
-        val view: View = LayoutInflater.from(context).inflate(R.layout.calendar_lv_item, null)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.order_lv_item, null)
 
         /* 위에서 생성된 view를 res-layout-calendar_lv_item.xml 파일의 각 View와 연결하는 과정이다. */
         val ingredient_name = view.findViewById<TextView>(R.id.in_name)
-        val ingredient_quantity = view.findViewById<TextView>(R.id.in_exdate)//유통기한아이디
-        val ingredient_time = view.findViewById<TextView>(R.id.in_time)// 남은일수 아이디
+        val ingredient_exdate = view.findViewById<TextView>(R.id.in_exdate)//유통기한아이디 연결
+        val ingredient_time = view.findViewById<TextView>(R.id.in_time)// 남은일수 아이디 연결
+        val ingredient_quantity = view.findViewById<TextView>(R.id.in_quantity) //수량 아이디 연결
+
+        var textView_date = view.findViewById<TextView>(R.id.textView_date)
+        var textView_unit = view.findViewById<TextView>(R.id.textView_unit)
+
+        textView_date.setTextColor(Color.BLACK)
+        textView_unit.setTextColor(Color.BLACK)
+        ingredient_exdate.setTextColor(Color.BLACK)
+        ingredient_quantity.setTextColor(Color.BLACK)
+
 
         /* ArrayList<Dog>의 변수 dog의 이미지와 데이터를 ImageView와 TextView에 담는다. *///////
         val ingredient = ingredientList[position] //db 한 행
@@ -41,10 +53,46 @@ class CalendarListAdapter(val context: Context, val ingredientList: ArrayList<in
         var nowDAY = nowDateArray[2]
 
         var remaintime = fewDay(nowYEAR.toInt(),nowMONTH.toInt(),nowDAY.toInt(),exYEAR.toInt(),exMONTH.toInt(),exDAY.toInt())
+        if(remaintime <= 3){
+            textView_date.setTextColor(Color.RED)
+            ingredient_time.setTextColor(Color.RED)
+        }else{
+            textView_date.setTextColor(Color.BLACK)
+            ingredient_time.setTextColor(Color.BLACK)
+        }
 
-        ingredient_name.text = ingredient.name // db 한행 중 첫번째(이름) 입력
-        ingredient_quantity.text = ingredient.time//유통기한에 유통기한이 들어가고있음
-        ingredient_time.text = remaintime.toString()//남은일수에 유통기한이 들어가고있음
+
+
+
+        //ingredient_name.text = ingredient.name // db 한행 중 첫번째(이름) 입력
+        var name = ingredient.name.split("(") //name[0]="이름", name[1]="단위)"
+        if(name[1] == "kg)"){
+            if(ingredient.quantity.toInt() <= 1) { //1kg 미만일때 빨간색
+                textView_unit.setTextColor(Color.RED)
+                ingredient_quantity.setTextColor(Color.RED)
+            }
+            textView_unit.setText("kg 남음")
+        }
+        else if(name[1] == "g)"){
+            if(ingredient.quantity.toInt() < 300) { //300g 미만일때 빨간색
+                textView_unit.setTextColor(Color.RED)
+                ingredient_quantity.setTextColor(Color.RED)
+            }
+            textView_unit.setText("g 남음")
+        }
+        else if(name[1] == "개)"){
+            if(ingredient.quantity.toInt() < 40) { //40개 미만일때 빨간색
+                textView_unit.setTextColor(Color.RED)
+                ingredient_quantity.setTextColor(Color.RED)
+            }
+            textView_unit.setText("개 남음")
+        }
+        ingredient_name.text = name[0]
+        ingredient_exdate.text = ingredient.time// 넘겨받은 db정보 삽입
+        ingredient_time.text = remaintime.toString()//계산된 d-day 삽입
+        ingredient_quantity.text = ingredient.quantity // 넘겨받은 db정보 삽입
+
+
 
         return view
     }

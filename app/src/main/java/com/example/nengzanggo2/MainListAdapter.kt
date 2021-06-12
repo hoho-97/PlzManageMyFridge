@@ -15,7 +15,7 @@ class MainListAdapter(val context: Context, val ingredientList: ArrayList<ingred
 
         /* 위에서 생성된 view를 res-layout-main_lv_item.xml 파일의 각 View와 연결하는 과정이다. */
         val ingredient_name = view.findViewById<TextView>(R.id.in_name)
-        val ingredient_quantity = view.findViewById<TextView>(R.id.in_quantity)
+        val ingredient_quantity = view.findViewById<TextView>(R.id.in_exdate)
         val ingredient_time = view.findViewById<TextView>(R.id.in_time)
 
         /* ArrayList<Dog>의 변수 dog의 이미지와 데이터를 ImageView와 TextView에 담는다. */

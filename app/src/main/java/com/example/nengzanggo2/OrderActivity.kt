@@ -23,7 +23,9 @@ class OrderActivity : AppCompatActivity() {
 
     val stockHelper = stockDBHelper(this)
     var ingredientList = arrayListOf<ingredient>()
+    var ingredientList2 = arrayListOf<ingredient>()
     lateinit var orderListView: ListView
+    lateinit var orderListView2 : ListView
 
     //D-Day계산 메소드드
     fun fewDay(beginDayYear:Int, beginDayMonth:Int, beginDayDate:Int, lastDayYear:Int, lastDayMonth:Int, lastDayDate:Int):Long{ //두 날짜간 차이 구하기
@@ -81,15 +83,47 @@ class OrderActivity : AppCompatActivity() {
         }
 
 
-        orderListView = findViewById<ListView>(R.id.orderListView)
-        val ingredientAdapter = CalendarListAdapter(this, ingredientList) //어댑터 생성
-        orderListView.adapter = ingredientAdapter
+//        orderListView = findViewById<ListView>(R.id.orderListView)
+//        val ingredientAdapter = CalendarListAdapter(this, ingredientList) //어댑터 생성
+//        orderListView.adapter = ingredientAdapter
+//
+//        val stockDB = stockHelper.readableDatabase
+//        var cursor = stockDB.rawQuery("SELECT * FROM stockTBL",null)
+//        while(cursor.moveToNext())
+//        {
+//            var n_ingredient : ingredient = ingredient(cursor.getString(0),cursor.getString(1),cursor.getString(2))
+//
+//            var exDateArray = n_ingredient.time.split(".")
+//            var exYEAR = exDateArray[0]
+//            var exMONTH = exDateArray[1]
+//            var exDAY = exDateArray[2]
+//
+//            var now = LocalDate.now()
+//            var nowDate = now.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+//            var nowDateArray = nowDate.split(".")
+//            var nowYEAR = nowDateArray[0]
+//            var nowMONTH = nowDateArray[1]
+//            var nowDAY = nowDateArray[2]
+//
+//            var remaintime = fewDay(nowYEAR.toInt(),nowMONTH.toInt(),nowDAY.toInt(),exYEAR.toInt(),exMONTH.toInt(),exDAY.toInt())
+//
+//            if(remaintime<= 3) {
+//                ingredientList.add(n_ingredient) //기한 임박 재료리스트에 추가
+//                ingredientAdapter.notifyDataSetChanged() //어댑터에 추가 확인시키기(싱크로나이즈)
+//            }
+//
+//        }
+
+        //통합통합!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111
+        orderListView2 = findViewById<ListView>(R.id.orderListView2)
+        val OrderListAdapter = OrderListAdapter(this, ingredientList2) //어댑터 생성
+        orderListView2.adapter = OrderListAdapter
 
         val stockDB = stockHelper.readableDatabase
-        var cursor = stockDB.rawQuery("SELECT * FROM stockTBL",null)
-        while(cursor.moveToNext())
+        var cursor2 = stockDB.rawQuery("SELECT * FROM stockTBL",null)
+        while(cursor2.moveToNext())
         {
-            var n_ingredient : ingredient = ingredient(cursor.getString(0),cursor.getString(1),cursor.getString(2))
+            var n_ingredient : ingredient = ingredient(cursor2.getString(0),cursor2.getString(1),cursor2.getString(2))
 
             var exDateArray = n_ingredient.time.split(".")
             var exYEAR = exDateArray[0]
@@ -106,8 +140,31 @@ class OrderActivity : AppCompatActivity() {
             var remaintime = fewDay(nowYEAR.toInt(),nowMONTH.toInt(),nowDAY.toInt(),exYEAR.toInt(),exMONTH.toInt(),exDAY.toInt())
 
             if(remaintime<= 3) {
-                ingredientList.add(n_ingredient) //기한 임박 재료리스트에 추가
-                ingredientAdapter.notifyDataSetChanged() //어댑터에 추가 확인시키기(싱크로나이즈)
+                ingredientList2.add(n_ingredient) //기한 임박 재료리스트에 추가
+                OrderListAdapter.notifyDataSetChanged() //어댑터에 추가 확인시키기(싱크로나이즈)
+                continue
+            }
+
+
+            //수량쳌
+            var name = n_ingredient.name.split("(") // quantity[0]= "이름", quantity[1]= "단위)"
+            var quantity = n_ingredient.quantity.toInt()
+            //var tmp = quantity[1].split(")") //tmp[0]="단위", tmp[1]=")"
+
+            if(name[1] == "kg)"){
+                if(quantity < 1) //1kg 미만일때 리스트 추가
+                    ingredientList2.add(n_ingredient)
+                    OrderListAdapter.notifyDataSetChanged()
+            }
+            else if(name[1] == "g)"){
+                if(quantity < 300) //300g 미만일때 리스트에 추가
+                    ingredientList2.add(n_ingredient)
+                    OrderListAdapter.notifyDataSetChanged()
+            }
+            else if(name[1] == "개)"){
+                if(quantity < 40) //40개 미만일때 리스트에 추가
+                    ingredientList2.add(n_ingredient)
+                    OrderListAdapter.notifyDataSetChanged()
             }
 
         }

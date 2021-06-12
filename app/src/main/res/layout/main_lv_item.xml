@@ -16,7 +16,7 @@
         tools:text="Breed" />
 
     <TextView
-        android:id="@+id/in_quantity"
+        android:id="@+id/in_exdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -34,9 +34,9 @@
         android:layout_marginStart="128dp"
         android:layout_marginLeft="128dp"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/in_quantity"
-        app:layout_constraintStart_toEndOf="@+id/in_quantity"
-        app:layout_constraintTop_toTopOf="@+id/in_quantity"
+        app:layout_constraintBottom_toBottomOf="@+id/in_exdate"
+        app:layout_constraintStart_toEndOf="@+id/in_exdate"
+        app:layout_constraintTop_toTopOf="@+id/in_exdate"
         app:layout_constraintVertical_bias="0.0"
         tools:text="Gender" />
 
@@ -52,14 +52,14 @@
         app:layout_constraintTop_toBottomOf="@+id/in_name" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="유통기한"
         app:layout_constraintEnd_toStartOf="@+id/in_time"
         app:layout_constraintHorizontal_bias="0.736"
-        app:layout_constraintStart_toEndOf="@+id/in_quantity"
+        app:layout_constraintStart_toEndOf="@+id/in_exdate"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
