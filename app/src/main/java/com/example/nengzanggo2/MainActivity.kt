@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class stockDBHelper(context: Context) : SQLiteOpenHelper(context,"stock",null,1) {
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL("CREATE TABLE stockTBL(sname CHAR(40),squantity CHAR(20),stime CHAR(20));")
-        db!!.execSQL("CREATE TABLE recipeTBL(RecipeName CHAR(20), RecipeImage CHAR(200), RecipeContent CHAR(100));")
+        db!!.execSQL("CREATE TABLE recipeTBL(RecipeName CHAR(20), RecipeImage CHAR(200), RecipeContent CHAR(100), RecipeYoutube CHAR(100));")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

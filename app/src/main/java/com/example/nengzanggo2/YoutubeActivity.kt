@@ -1,14 +1,15 @@
 package com.example.nengzanggo2
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 
-const val YOUTUBE_VIDEO_ID = "6xocL617Hrk"
-const val API_KEY = "AIzaSyAIdRI3mkcM0_ZE6FxQ7EsrEhUN26Rx2ns"
+
+const val API_KEY = "AIzaSyCO38NNAtc6201_Mp1estTRS5XCg7SPFA4"
 class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,10 @@ class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListen
     override fun onInitializationSuccess(provider: YouTubePlayer.Provider?, youTubePlayer: YouTubePlayer?,
                                          wasRestored: Boolean) {
 
-
+        val intent = intent
+        val str = intent.getStringExtra("Link")
+        val arr = str!!.split("=","/")
+        val YOUTUBE_VIDEO_ID = arr.last()
         if (!wasRestored) {
             youTubePlayer?.loadVideo(YOUTUBE_VIDEO_ID)
         }

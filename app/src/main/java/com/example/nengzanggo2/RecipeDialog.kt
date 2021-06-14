@@ -40,6 +40,7 @@ class RecipeDialog(context: Context, recipe: recipe) : BottomSheetDialog(context
         playBtn = findViewById<Button>(R.id.playBtn)!!
         //확인 버튼
         playBtn.setOnClickListener {
+            intent.putExtra("Link", recipe.recipeYoutubeLink)
             getContext().startActivity(intent)
         }
         closeImage.setOnClickListener {

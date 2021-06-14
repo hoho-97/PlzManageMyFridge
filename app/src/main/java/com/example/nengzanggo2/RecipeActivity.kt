@@ -26,6 +26,7 @@ class RecipeActivity : AppCompatActivity() {
     var recipeList = arrayListOf<recipe>()  //recipe 이름 저장하는 배열
     lateinit var gridView: GridView         //recipe 버튼뷰 GridView
     lateinit var recipeName : EditText      //recipe 추가시 입력되는 레시피명
+    lateinit var recipeLink : EditText      //recipe 추가시 입력되는 유튜브 링크
     final val GET_GALLERY_IMAGE : Int = 200 //선택 이미지 상수
     lateinit var imageSmile: ImageView       //이미지 선택 아이콘
     lateinit var imageDissapointed: ImageView       //이미지 선택 아이콘
@@ -55,7 +56,7 @@ class RecipeActivity : AppCompatActivity() {
             var cursor = stockDB.rawQuery("SELECT * FROM recipeTBL", null)
             while (cursor.moveToNext()) {
                 if(cursor.getString(2).contains("$recommend_ingredient")) {
-                    var n_recipe = recipe(cursor.getString(0), cursor.getString(1), cursor.getString(2))
+                    var n_recipe = recipe(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3))
                     recipeList.add(n_recipe)
                     recipeAdapter.notifyDataSetChanged()
                 }
@@ -64,7 +65,7 @@ class RecipeActivity : AppCompatActivity() {
         else {
             var cursor = stockDB.rawQuery("SELECT * FROM recipeTBL", null)
             while (cursor.moveToNext()) {
-                var n_recipe = recipe(cursor.getString(0), cursor.getString(1), cursor.getString(2))
+                var n_recipe = recipe(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3))
                 recipeList.add(n_recipe)
                 recipeAdapter.notifyDataSetChanged()
             }
@@ -99,10 +100,14 @@ class RecipeActivity : AppCompatActivity() {
                 var newRecipeName : String = recipeName.text.toString()
                 var newRecipeImage : String = getRealPathFromURI(uri)
                 var newRecipeContent : String = ""
+                var newRecipeLink : String = ""
                 //**************추가할래 버튼 누르고 다음 재료추가하는 dialog실행!!
                 var dialogView_sub = View.inflate(this@RecipeActivity, R.layout.recipe_ingredient_dialog, null)
                 var dlg_sub = AlertDialog.Builder(this@RecipeActivity)
+                var dialogView_sub2 = View.inflate(this@RecipeActivity, R.layout.recipe_youtube_dialog, null)
+                var dlg_sub2 = AlertDialog.Builder(this@RecipeActivity)
                 dlg_sub.setView(dialogView_sub)
+                dlg_sub2.setView(dialogView_sub2)
                 /*##################################################################################*/
                 var list_unit = arrayListOf("kg","g","개","병","통") // 재료명 스피너에 담길 배열
 
@@ -127,15 +132,12 @@ class RecipeActivity : AppCompatActivity() {
                     var recipeIngNumId = arrayOf(R.id.recipeIngNum1, R.id.recipeIngNum2,R.id.recipeIngNum3,
                             R.id.recipeIngNum4, R.id.recipeIngNum5, R.id.recipeIngNum6, R.id.recipeIngNum7,R.id.recipeIngNum8,
                             R.id.recipeIngNum9, R.id.recipeIngNum10)
-                    /*var recipeIngUnit = arrayOfNulls<Spinner>(10)
-                    var recipeIngUnitId = arrayOf(R.id.recipeUnit1,R.id.recipeUnit2,R.id.recipeUnit3,R.id.recipeUnit4,
-                            R.id.recipeUnit5,R.id.recipeUnit6,R.id.recipeUnit7,R.id.recipeUnit8,R.id.recipeUnit9,R.id.recipeUnit10)*/
+
 
                     for(i in recipeIngId.indices) {
                         recipeIng[i] = dialogView_sub.findViewById<EditText>(recipeIngId[i])
                         recipeIngNum[i] = dialogView_sub.findViewById<EditText>(recipeIngNumId[i])
-                        /*recipeIngUnit[i] = dialogView_sub.findViewById<Spinner>(recipeIngUnitId[i]) as Spinner
-                        recipeIngUnit[i]?.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_unit)*/
+
                     }
                     for(i in recipeIngId.indices) {
 
@@ -149,12 +151,27 @@ class RecipeActivity : AppCompatActivity() {
                         var text = "$textIng,$textIngNum$textIngUnit"
                         newRecipeContent = "$newRecipeContent$text,"
                     }
-                    //입력된 변수 DB에 저장
-                    stockWriteDB.execSQL("INSERT INTO recipeTBL VALUES ( '${newRecipeName}', '${newRecipeImage}' ,'${newRecipeContent}');")
-                    stockWriteDB.close()
 
-                    recipeList.add(recipe(newRecipeName, newRecipeImage, newRecipeContent))
-                    recipeAdapter.notifyDataSetChanged()
+
+                    //**************추가할래 버튼 누르고 다음 유튜브 링크추가하는 dialog실행!!
+                    dlg_sub2.setNegativeButton("추가할래!") { _, _ ->
+                        recipeLink = dialogView_sub2.findViewById<View>(R.id.recipeLink) as EditText
+
+                        newRecipeLink = recipeLink.text.toString()
+
+                        //입력된 변수 DB에 저장
+                        stockWriteDB.execSQL("INSERT INTO recipeTBL VALUES ( '${newRecipeName}', '${newRecipeImage}' ,'${newRecipeContent}','${newRecipeLink}');")
+                        stockWriteDB.close()
+
+                        recipeList.add(recipe(newRecipeName, newRecipeImage, newRecipeContent, newRecipeLink))
+                        recipeAdapter.notifyDataSetChanged()
+                    }
+
+                    dlg_sub2.setPositiveButton("취소", null)
+
+                    //************레시피 youtube링크 추가 dialog 끝!!
+                    dlg_sub2.show()
+
                 }
                 dlg_sub.setPositiveButton("취소", null)
 
@@ -193,7 +210,7 @@ class RecipeActivity : AppCompatActivity() {
                 val stockDB = stockHelper.readableDatabase
                 var cursor = stockDB.rawQuery("SELECT * FROM recipeTBL",null)
                 while(cursor.moveToNext()) {
-                    var n_recipe = recipe(cursor.getString(0), cursor.getString(1),cursor.getString(2))
+                    var n_recipe = recipe(cursor.getString(0), cursor.getString(1),cursor.getString(2),cursor.getString(3))
                     recipeList.add(n_recipe)
                     recipeAdapter.notifyDataSetChanged()
                 }
@@ -246,7 +263,7 @@ class RecipeActivity : AppCompatActivity() {
                 val stockDB = stockHelper.readableDatabase
                 var cursor = stockDB.rawQuery("SELECT * FROM recipeTBL",null)
                 while(cursor.moveToNext()) {
-                    var n_recipe = recipe(cursor.getString(0), cursor.getString(1),cursor.getString(2))
+                    var n_recipe = recipe(cursor.getString(0), cursor.getString(1),cursor.getString(2),cursor.getString(3))
                     recipeList.add(n_recipe)
                     recipeAdapter.notifyDataSetChanged()
                 }
