@@ -28,4 +28,11 @@
         <activity android:name=".CalendarActivity"/>
         <activity android:name=".YoutubeActivity"/>
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START"/>
+        </intent>
+    </queries>
+
 </manifest>
