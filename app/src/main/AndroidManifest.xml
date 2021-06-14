@@ -26,5 +26,6 @@
         <activity android:name=".RecipeActivity"/>
         <activity android:name=".OrderActivity"/>
         <activity android:name=".CalendarActivity"/>
+        <activity android:name=".YoutubeActivity"/>
     </application>
 </manifest>

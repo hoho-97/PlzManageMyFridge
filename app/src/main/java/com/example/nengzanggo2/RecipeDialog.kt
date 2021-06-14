@@ -1,6 +1,7 @@
 package com.example.nengzanggo2
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.Button
@@ -18,6 +19,7 @@ class RecipeDialog(context: Context, recipe: recipe) : BottomSheetDialog(context
     lateinit var recipeTitle : TextView
     lateinit var recipeImage : ImageView
     lateinit var contextField : TextView
+    var intent = Intent(getContext().applicationContext,YoutubeActivity::class.java)
     init {
 
         //R.layout.confirm_bottom_dialog 하단 다이어로그 생성 버튼을 눌렀을 때 보여질 레이아웃
@@ -37,6 +39,9 @@ class RecipeDialog(context: Context, recipe: recipe) : BottomSheetDialog(context
         closeImage = findViewById<ImageView>(R.id.ic_close)!!
         playBtn = findViewById<Button>(R.id.playBtn)!!
         //확인 버튼
+        playBtn.setOnClickListener {
+            getContext().startActivity(intent)
+        }
         closeImage.setOnClickListener {
 
             //다이어 로그 숨기기
