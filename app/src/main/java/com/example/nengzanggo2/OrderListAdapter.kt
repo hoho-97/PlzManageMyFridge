@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 //ㅎㅇ
 class OrderListAdapter(val context: Context, val ingredientList: ArrayList<ingredient>) : BaseAdapter() {
@@ -67,7 +65,7 @@ class OrderListAdapter(val context: Context, val ingredientList: ArrayList<ingre
         //ingredient_name.text = ingredient.name // db 한행 중 첫번째(이름) 입력
         var name = ingredient.name.split("(") //name[0]="이름", name[1]="단위)"
         if(name[1] == "kg)"){
-            if(ingredient.quantity.toInt() <= 1) { //1kg 미만일때 빨간색
+            if(ingredient.quantity.toInt() <= 3) { //1kg 미만일때 빨간색
                 textView_unit.setTextColor(Color.RED)
                 ingredient_quantity.setTextColor(Color.RED)
             }
@@ -81,7 +79,7 @@ class OrderListAdapter(val context: Context, val ingredientList: ArrayList<ingre
             textView_unit.setText("g 남음")
         }
         else if(name[1] == "개)"){
-            if(ingredient.quantity.toInt() < 40) { //40개 미만일때 빨간색
+            if(ingredient.quantity.toInt() < 10) { //40개 미만일때 빨간색
                 textView_unit.setTextColor(Color.RED)
                 ingredient_quantity.setTextColor(Color.RED)
             }

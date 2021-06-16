@@ -1,7 +1,6 @@
 package com.example.nengzanggo2
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -9,7 +8,7 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 
 
-const val API_KEY = "AIzaSyCO38NNAtc6201_Mp1estTRS5XCg7SPFA4"
+const val API_KEY = "AIzaSyAIdRI3mkcM0_ZE6FxQ7EsrEhUN26Rx2ns"
 class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +18,7 @@ class YoutubeActivity : YouTubeBaseActivity(), YouTubePlayer.OnInitializedListen
 
         val playerView = YouTubePlayerView(this)
         playerView.layoutParams = ConstraintLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         layout.addView(playerView)
 
         playerView.initialize(API_KEY, this)

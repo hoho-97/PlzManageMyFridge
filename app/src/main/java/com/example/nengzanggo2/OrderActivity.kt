@@ -2,16 +2,13 @@ package com.example.nengzanggo2
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.order.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -152,7 +149,7 @@ class OrderActivity : AppCompatActivity() {
             //var tmp = quantity[1].split(")") //tmp[0]="단위", tmp[1]=")"
 
             if(name[1] == "kg)"){
-                if(quantity < 1) //1kg 미만일때 리스트 추가
+                if(quantity < 3) //1kg 미만일때 리스트 추가
                     ingredientList2.add(n_ingredient)
                     OrderListAdapter.notifyDataSetChanged()
             }
@@ -162,7 +159,7 @@ class OrderActivity : AppCompatActivity() {
                     OrderListAdapter.notifyDataSetChanged()
             }
             else if(name[1] == "개)"){
-                if(quantity < 40) //40개 미만일때 리스트에 추가
+                if(quantity < 10) //40개 미만일때 리스트에 추가
                     ingredientList2.add(n_ingredient)
                     OrderListAdapter.notifyDataSetChanged()
             }
