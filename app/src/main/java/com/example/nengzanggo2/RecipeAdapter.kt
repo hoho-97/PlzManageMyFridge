@@ -1,4 +1,5 @@
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -35,9 +36,9 @@ class RecipeAdapter(val context: Context, val recipeList: ArrayList<recipe>) : B
         recipeBtn.text = recipe.name
         try {
             val file = File(recipe.image)
-            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+            val bitmap: Bitmap? = BitmapFactory.decodeFile(file.absolutePath)
 
-            recipeBtn.setCompoundDrawablesWithIntrinsicBounds(null, BitmapDrawable(bitmap.scale(750,500,false)),null,null)
+            recipeBtn.setCompoundDrawablesWithIntrinsicBounds(null, BitmapDrawable(bitmap?.scale(750,500,false)),null,null)
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
         }
