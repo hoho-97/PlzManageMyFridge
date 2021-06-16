@@ -313,11 +313,13 @@ class MainActivity : AppCompatActivity() {
 
 
                 dlg.setPositiveButton("검색하기"){dialog , which ->
-
+//
                     var cursor2 = stockDB.rawQuery("SELECT * FROM stockTBL",null)
                     while(cursor2.moveToNext())
                     {
-                        if(EditText_search.text.toString().equals(name_list[i])) //스피너 재료명과 리스트뷰에 재고명이 같을 경우
+                        var name = name_list[i].split("(")
+                        var real_name = name[0]
+                        if(EditText_search.text.toString().equals(real_name)) //스피너 재료명과 리스트뷰에 재고명이 같을 경우
                         {
                             ingredientList.clear()
                             var n_ingredient : ingredient = ingredient(cursor2.getString(0),cursor2.getString(1),cursor2.getString(2))
